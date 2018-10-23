@@ -11,18 +11,18 @@
             <div class="row">
                 <div class="col">
                     <h5>Traduzir texto abaixo:</h5>
-                    <p> How are you ?</p>
+                    <p>{{fraseIng}}</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                         <div class="form-group">
-                                <textarea class="form-control"  rows="5"></textarea>
+                                <textarea class="form-control"  rows="5" [(ngModel)="frasePort"]></textarea>
                         </div>    
                 </div>    
             </div>        
             <div class="d-flex justify-content-end">                
-                <button type="button" class="btn btn-primary">Primary</button>    
+                <button type="button" class="btn btn-primary" onclick="verificaFrase()">Primary</button>    
             </div>    
     </div>    
 </div>
