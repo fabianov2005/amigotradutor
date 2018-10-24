@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Frase } from '../shared/frase.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { MockFrase } from '../corpo/frase-mock';
+import { Frase } from '../shared/frase.model';
 import { TentativasComponent } from '../tentativas/tentativas.component';
 
 @Component({
@@ -11,13 +11,10 @@ import { TentativasComponent } from '../tentativas/tentativas.component';
 export class CorpoComponent implements OnInit {
 
       private frase: Frase;
-
       public fraseIng: string;
       public frasePort: string;
-
       public contaTentativas = 3;
-
-      public tentativas: TentativasComponent;
+      @Input() tentativas: TentativasComponent;
       public img = '../../assets/coracao_cheio.png';
 
       constructor() {
@@ -26,25 +23,38 @@ export class CorpoComponent implements OnInit {
       }
 
       ngOnInit() {
-    }
+      }
 
-      public verificaFrase(event) {
+      public verificaFrase() {
 
+        console.log('Metodo acessado.');
+        console.log(this.frasePort);
+        console.log(this.frase.frasePortugues);
         if (this.frasePort !== this.frase.frasePortugues) {
-              if (this.contaTentativas > 3 ) {
+              console.log(this.contaTentativas);
+              if (this.contaTentativas <= 3 ) {
+                  console.log('Entrou no if');
                   alert('Opa!!! Tradução incorreta ! Tente novamente.');
-                  if (this.contaTentativas === 1) {
-                      this.tentativas.setPrimeiroCoracaoVariavel(this.img);
-                  } else {
-                        if (this.contaTentativas === 2) {
-                            this.tentativas.setSegundoCoracaoVariavel(this.img);
-                        } else {
-                            this.tentativas.setTerceiroCoracaoVariavel(this.img);
-                        }
+                  console.log(this.contaTentativas);
+                  console.log(this.contaTentativas);
+                  switch (this.contaTentativas) {
+                        case 1:
+                              console.log('Entrou tentativa 1');
+                              this.tentativas.primeiroCoracaoVariavel = this.img;
+                              break;
+                        case 2:
+                        console.log('Entrou tentativa 2');
+                              this.tentativas.segundoCoracaoVariavel = this.img;
+                              break;
+                        case 3:
+                        console.log('Entrou tentativa 3');
+                              this.tentativas.terceiroCoracaoVariavel = this.img;
+                              break;
+                        default:
+                            break;
                   }
-                  this.contaTentativas = this.contaTentativas - 1;
-
-              }
+                   this.contaTentativas = this.contaTentativas - 1;
+            }
         } else {
               if ( MockFrase.indexOf(this.frase) > 4) {
                         if (confirm('Frases acabaram. Deseja recomeçar ?')) {
